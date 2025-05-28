@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Horizontal Scroll with Bottom Buttons</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; font-family: 'Press Start 2P', monospace; background: black; color: lime; }
+    .scroll-container { display: flex; height: calc(100vh - 60px); overflow-x: auto; scroll-behavior: smooth; }
+    .scroll-section { flex: 0 0 100vw; height: 100%; display: flex; background: black; padding: 20px; box-sizing: border-box; gap: 20px; }
+    .left, .right { height: 100%; }
+    .left { width: 60%; display: flex; justify-content: center; align-items: center; background: #000; }
+    .left img { width: 100%; height: 100%; object-fit: cover; }
+    .right { width: 40%; border: 2px solid lime; color: lime; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; text-align: center; }
+    .right h1 { font-size: 1rem; margin-bottom: 20px; }
+    .right p { font-size: 0.6rem; line-height: 1.4; }
+    .footer-blocks { position: fixed; bottom: 0; left: 0; display: flex; width: 100vw; height: 60px; background: lime; z-index: 100; }
+    .footer-block { flex: 1; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 1rem; text-decoration: none; cursor: pointer; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; color: lime; font-family: 'Press Start 2P', monospace; display: none; z-index: 200; padding: 40px; box-sizing: border-box; overflow-y: auto; }
+    .overlay-content { max-width: 1200px; margin: 40px auto; text-align: center; font-size: 0.8rem; }
+    .folder-grid { display: flex; justify-content: space-around; margin-top: 60px; flex-wrap: wrap; }
+    .folder-item { display: flex; flex-direction: column; align-items: center; margin: 20px; }
+    .folder { width: 120px; height: 80px; border: 2px solid lime; position: relative; box-sizing: border-box; }
+    .folder::before { content: ''; position: absolute; top: -10px; left: 10px; width: 40px; height: 10px; background: black; border: 2px solid lime; border-bottom: none; }
+    .folder-label button { margin-top: 15px; font-size: 0.6rem; color: lime; background: black; border: 2px solid lime; padding: 5px 10px; cursor: pointer; font-family: 'Press Start 2P', monospace; }
+    .timeline { margin-top: 40px; border-left: 2px solid lime; padding-left: 20px; text-align: left; display: inline-block; }
+    .timeline-item { margin-bottom: 20px; position: relative; padding-left: 20px; }
+    .timeline-item::before { content: ''; position: absolute; left: -8px; top: 4px; width: 12px; height: 12px; background: lime; border-radius: 50%; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
+    .grid-item { border: 2px solid lime; padding: 16px; text-align: center; font-size: 0.6rem; min-height: 50px; background: black; color: lime; cursor: pointer; font-family: 'Press Start 2P', monospace; }
+    .close-btn { margin-top: 40px; font-family: 'Press Start 2P', monospace; font-size: 0.6rem; padding: 10px 20px; background: none; border: 2px solid lime; color: lime; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div class="scroll-container" id="scrollContainer">
+  <div class="scroll-section section">
+    
+    <div class="right"><h1>Pixel Dreams</h1><p>Explore the evolution of pixel art from retro games to modern masterpieces, where every pixel tells a story.</p></div>
+  </div>
+  <div class="scroll-section section">
+    <div class="left"><img src="Image2.png" alt="Artwork 2"></div>
+    <div class="right"><h1>Retro Revival</h1><p>Rediscover the charm of old-school graphics in a modern digital world, blending nostalgia with innovation.</p></div>
+  </div>
+  <div class="scroll-section section">
+    <div class="left"><img src="Image3.png" alt="Artwork 3"></div>
+    <div class="right"><h1>Glitch Aesthetics</h1><p>Celebrate imperfections and digital distortions, turning glitches into vibrant works of art.</p></div>
+  </div>
+  <div class="scroll-section section">
+    <div class="left"><img src="Image4.png" alt="Artwork 4"></div>
+    <div class="right"><h1>Future Pixels</h1><p>Imagine the next chapter of pixel art, where tradition meets cutting-edge creativity.</p></div>
+  </div>
+</div>
+
+<div class="footer-blocks">
+  <div class="footer-block" id="historyBtn">Introduction</div>
+  <div class="footer-block" id="artistsBtn">Annotated Bibliography</div>
+  <div class="footer-block" id="termsBtn">Lists of terms</div>
+  <div class="footer-block">About</div>
+</div>
+
+<div class="overlay" id="historyOverlay">
+  <div class="overlay-content">
+    <h1>Pixel Art History</h1>
+    <p>Pixel art is a form of digital art drawn with graphical software where images are built using pixels as the only building block. It is widely associated with the low-resolution graphics from 8-bit and 16-bit era computers, arcade machines and video game consoles, in addition to other limited systems such as LED displays and graphing calculators. The art form is still employed today by pixel artists and game studios.</p>
+    <div class="timeline">
+      <div class="timeline-item"><strong>1970s</strong><br>Birth of digital displays</div>
+      <div class="timeline-item"><strong>1980s</strong><br>Pixel art in arcade and NES games</div>
+      <div class="timeline-item"><strong>1990s</strong><br>Handheld consoles and 16-bit masterpieces</div>
+      <div class="timeline-item"><strong>2000s+</strong><br>Pixel art revival in indie games</div>
+    </div>
+    <button class="close-btn" onclick="closeOverlay()">CLOSE</button>
+  </div>
+</div>
+
+<div class="overlay" id="artistsOverlay">
+  <div class="overlay-content">
+    <h1>Annotated Bibliography</h1>
+    <div class="grid">
+      <button class="grid-item" onclick="openEntry(1)">Research Statement</button>
+      <button class="grid-item" onclick="openEntry(1)">Entry 1</button>
+      <button class="grid-item" onclick="openEntry(2)">Entry 2</button>
+      <button class="grid-item" onclick="openEntry(3)">Entry 3</button>
+      <button class="grid-item" onclick="openEntry(4)">Entry 4</button>
+      <button class="grid-item" onclick="openEntry(5)">Entry 5</button>
+      <button class="grid-item" onclick="openEntry(6)">Entry 6</button>
+      <button class="grid-item" onclick="openEntry(7)">Entry 7</button>
+      <button class="grid-item" onclick="openEntry(8)">Entry 8</button>
+      <button class="grid-item" onclick="openEntry(9)">Entry 9</button>
+      <button class="grid-item" onclick="openEntry(10)">Entry 10</button>
+    </div>
+    <button class="close-btn" onclick="closeArtists()">CLOSE</button>
+  </div>
+</div>
+
+<div class="overlay" id="entryOverlay">
+  <div class="overlay-content">
+    <h1 id="entryTitle">Entry Title</h1>
+    <p id="entryText">Entry details will appear here.</p>
+    <button class="close-btn" onclick="closeEntry()">CLOSE</button>
+  </div>
+</div>
+
+<div class="overlay" id="termsOverlay">
+  <div class="overlay-content">
+    <h1>Lists of Terms</h1>
+    <div class="folder-grid">
+      <div class="folder-item">
+        <div class="folder"></div>
+        <div class="folder-label">
+          <button onclick="openTerm('Games')">Games</button>
+        </div>
+      </div>
+      <div class="folder-item">
+        <div class="folder"></div>
+        <div class="folder-label">
+          <button onclick="openTerm('Grid System')">Grid System</button>
+        </div>
+      </div>
+      <div class="folder-item">
+        <div class="folder"></div>
+        <div class="folder-label">
+          <button onclick="openTerm('Interface')">Interface</button>
+        </div>
+      </div>
+    </div>
+    <button class="close-btn" onclick="closeTerms()">CLOSE</button>
+  </div>
+</div>
+
+<div class="overlay" id="termOverlay">
+  <div class="overlay-content">
+    <h1 id="termTitle">Term Title</h1>
+    <p id="termText">Term details will appear here.</p>
+    <button class="close-btn" onclick="closeTerm()">CLOSE</button>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('scrollContainer');
+  window.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    const speed = 5;
+    container.scrollLeft += e.deltaY * speed;
+  }, { passive: false });
+
+  const artistsBtn = document.getElementById('artistsBtn');
+  const artistsOverlay = document.getElementById('artistsOverlay');
+  artistsBtn.addEventListener('click', function() {
+    artistsOverlay.style.display = 'block';
+  });
+  function closeArtists() {
+    artistsOverlay.style.display = 'none';
+  }
+
+  const historyBtn = document.getElementById('historyBtn');
+  const historyOverlay = document.getElementById('historyOverlay');
+  historyBtn.addEventListener('click', function() {
+    historyOverlay.style.display = 'block';
+  });
+  function closeOverlay() {
+    historyOverlay.style.display = 'none';
+  }
+
+  const termsBtn = document.getElementById('termsBtn');
+  const termsOverlay = document.getElementById('termsOverlay');
+  termsBtn.addEventListener('click', function() {
+    termsOverlay.style.display = 'block';
+  });
+  function closeTerms() {
+    termsOverlay.style.display = 'none';
+  }
+
+  const entryOverlay = document.getElementById('entryOverlay');
+  const entryTitle = document.getElementById('entryTitle');
+  const entryText = document.getElementById('entryText');
+
+  function openEntry(num) {
+    entryTitle.textContent = 'Entry ' + num;
+    entryText.textContent = 'This is the detailed description for Entry ' + num + '. You can replace this text with your own content.';
+    entryOverlay.style.display = 'block';
+  }
+
+  function closeEntry() {
+    entryOverlay.style.display = 'none';
+  }
+
+  const termOverlay = document.getElementById('termOverlay');
+  const termTitle = document.getElementById('termTitle');
+  const termText = document.getElementById('termText');
+
+  function openTerm(term) {
+    termTitle.textContent = term;
+    termText.textContent = 'This is the detailed description for ' + term + '. You can replace this text with your own content.';
+    termOverlay.style.display = 'block';
+  }
+
+  function closeTerm() {
+    termOverlay.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
